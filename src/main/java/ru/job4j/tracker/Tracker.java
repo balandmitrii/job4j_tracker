@@ -32,7 +32,7 @@ public class Tracker {
                     index,
                     size - index - 1
             );
-            size--;
+            items[--size] = null;
         }
     }
 
