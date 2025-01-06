@@ -34,7 +34,8 @@ public class Tracker {
                     index,
                     size - index - 1
             );
-            items[--size] = null;
+            items[size - 1] = null;
+            size--;
         }
         return result;
     }
