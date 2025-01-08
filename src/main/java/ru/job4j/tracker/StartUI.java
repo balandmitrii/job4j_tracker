@@ -24,6 +24,17 @@ public class StartUI {
                 tracker.add(item);
                 System.out.println("Добавленная заявка: " + item);
                 System.out.println();
+            } else if (select == 2) {
+                System.out.println("=== Вывод всех заявок ===");
+                Item[] items = tracker.findAll();
+                if (items.length > 0) {
+                    for (Item item : items) {
+                        System.out.println(item);
+                    }
+                } else {
+                    System.out.println("Хранилище еще не содержит заявок");
+                }
+                System.out.println();
             } else if (select == menu.length) {
                 System.out.println();
                 System.out.println("Программа завершена.");
