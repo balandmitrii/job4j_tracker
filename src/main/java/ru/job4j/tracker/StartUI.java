@@ -14,7 +14,8 @@ public class StartUI {
         boolean run = true;
         while (run) {
             showMenu();
-            System.out.println("Выбрать");
+            System.out.print("Выбрать: ");
+            System.out.println();
             int select = Integer.parseInt(scanner.nextLine());
             if (select == 1) {
                 System.out.println("=== Создание новой заявки ===");
@@ -23,7 +24,6 @@ public class StartUI {
                 Item item = new Item(name);
                 tracker.add(item);
                 System.out.println("Добавленная заявка: " + item);
-                System.out.println();
             } else if (select == 2) {
                 System.out.println("=== Вывод всех заявок ===");
                 Item[] items = tracker.findAll();
@@ -34,7 +34,6 @@ public class StartUI {
                 } else {
                     System.out.println("Хранилище еще не содержит заявок");
                 }
-                System.out.println();
             } else if (select == 3) {
                 System.out.println("=== Замена заявки ===");
                 System.out.print("Введите ID заявки: ");
@@ -47,7 +46,6 @@ public class StartUI {
                 } else {
                     System.out.println("Ошибка замены заявки");
                 }
-                System.out.println();
             } else if (select == 4) {
                 System.out.println("=== Удаление заявки ===");
                 System.out.print("Введите ID заявки: ");
@@ -57,7 +55,18 @@ public class StartUI {
                 } else {
                     System.out.println("Не удалось удалить заявку с id: " + id);
                 }
-                System.out.println();
+            } else if (select == 5) {
+                System.out.println("=== Вывод заявки ===");
+                System.out.print("Введите ID заявки: ");
+                int id = Integer.parseInt(scanner.nextLine());
+                Item item = tracker.findById(id);
+                if (item != null) {
+                    System.out.println("По ID=" + id + " найдена заявка: "
+                            + item);
+                } else {
+                    System.out.println("Заявка с введенным id: "
+                            + id + " не найдена.");
+                }
             } else if (select == menu.length) {
                 System.out.println();
                 System.out.println("Программа завершена.");
@@ -67,6 +76,7 @@ public class StartUI {
     }
 
     private void showMenu() {
+        System.out.println();
         for (int i = 0; i < menu.length; i++) {
             System.out.println((i + 1) + ". " + menu[i]);
         }
