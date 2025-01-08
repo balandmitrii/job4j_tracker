@@ -47,6 +47,17 @@ public class StartUI {
                 } else {
                     System.out.println("Ошибка замены заявки");
                 }
+                System.out.println();
+            } else if (select == 4) {
+                System.out.println("=== Удаление заявки ===");
+                System.out.print("Введите ID заявки: ");
+                int id = Integer.parseInt(scanner.nextLine());
+                if (tracker.delete(id)) {
+                    System.out.println("Заявка удалена успешно!");
+                } else {
+                    System.out.println("Не удалось удалить заявку с id: " + id);
+                }
+                System.out.println();
             } else if (select == menu.length) {
                 System.out.println();
                 System.out.println("Программа завершена.");
