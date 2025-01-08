@@ -16,9 +16,16 @@ public class StartUI {
             showMenu();
             System.out.println("Выбрать");
             int select = Integer.parseInt(scanner.nextLine());
-            if (select != menu.length) {
-                System.out.println("Польователь выбрал: " + select);
-            } else {
+            if (select == 1) {
+                System.out.println("=== Создание новой заявки ===");
+                System.out.print("Введите имя: ");
+                String name = scanner.nextLine();
+                Item item = new Item(name);
+                tracker.add(item);
+                System.out.println("Добавленная заявка: " + item);
+                System.out.println();
+            } else if (select == menu.length) {
+                System.out.println();
                 System.out.println("Программа завершена.");
                 run = false;
             }
