@@ -2,121 +2,35 @@ package ru.job4j.tracker;
 
 public class StartUI {
 
-    private final String[] menu = {
-            "Добавить новую заявку",
-            "Показать все заявки",
-            "Изменить заявку",
-            "Удалить заявку",
-            "Показать заявку по id",
-            "Показать заявки по имени",
-            "Завершить программу"};
-
-    public void init(Input input, Tracker tracker) {
+    public void init(Input input, Tracker tracker, UserAction[] userActions) {
         boolean run = true;
         while (run) {
-            showMenu();
+            showMenu(userActions);
             int select = input.askInt("Выбрать: ");
-            if (select == 1) {
-                createItem(input, tracker);
-            } else if (select == 2) {
-                findAllItems(tracker);
-            } else if (select == 3) {
-                replaceItem(input, tracker);
-            } else if (select == 4) {
-                deleteItem(input, tracker);
-            } else if (select == 5) {
-                findItemById(input, tracker);
-            } else if (select == 6) {
-                findItemByName(input, tracker);
-            } else if (select == menu.length) {
-                System.out.println();
-                System.out.println("Программа завершена.");
-                run = false;
-            }
+            UserAction action = userActions[select - 1];
+            run = action.execute(input, tracker);
         }
     }
 
-    public static void findItemByName(Input input, Tracker tracker) {
-        System.out.println("=== Вывод заявок по имени ===");
-        System.out.print("Введите имя заявки: ");
-        String name = input.askStr("Введите имя: ");
-        Item[] items = tracker.findByName(name);
-        if (items.length > 0) {
-            for (Item item : items) {
-                System.out.println(item);
-            }
-        } else {
-            System.out.println("Заявки с именем: " + name
-                    + " не найдены.");
-        }
-    }
-
-    public static void findItemById(Input input, Tracker tracker) {
-        System.out.println("=== Вывод заявки ===");
-        System.out.print("Введите ID заявки: ");
-        int id = input.askInt("Введите ID заявки: ");
-        Item item = tracker.findById(id);
-        if (item != null) {
-            System.out.println("По ID=" + id + " найдена заявка: "
-                    + item);
-        } else {
-            System.out.println("Заявка с введенным id: "
-                    + id + " не найдена.");
-        }
-    }
-
-    public static void deleteItem(Input input, Tracker tracker) {
-        System.out.println("=== Удаление заявки ===");
-        int id = input.askInt("Введите ID заявки: ");
-        if (tracker.delete(id)) {
-            System.out.println("Заявка удалена успешно!");
-        } else {
-            System.out.println("Не удалось удалить заявку с id: " + id);
-        }
-    }
-
-    public static void replaceItem(Input input, Tracker tracker) {
-        System.out.println("=== Замена заявки ===");
-        int id = input.askInt("Введите ID заявки: ");
-        String name = input.askStr("Введите имя: ");
-        Item item = new Item(name);
-        if (tracker.replace(id, item)) {
-            System.out.println("Заявка изменена успешно!");
-        } else {
-            System.out.println("Ошибка замены заявки");
-        }
-    }
-
-    public static void findAllItems(Tracker tracker) {
-        System.out.println("=== Вывод всех заявок ===");
-        Item[] items = tracker.findAll();
-        if (items.length > 0) {
-            for (Item item : items) {
-                System.out.println(item);
-            }
-        } else {
-            System.out.println("Хранилище еще не содержит заявок");
-        }
-    }
-
-    public static void createItem(Input input, Tracker tracker) {
-        System.out.println("=== Создание новой заявки ===");
-        String name = input.askStr("Введите имя: ");
-        Item item = new Item(name);
-        tracker.add(item);
-        System.out.println("Добавленная заявка: " + item);
-    }
-
-    private void showMenu() {
+    private void showMenu(UserAction[] userActions) {
         System.out.println();
-        for (int i = 0; i < menu.length; i++) {
-            System.out.println((i + 1) + ". " + menu[i]);
+        for (int i = 0; i < userActions.length; i++) {
+            System.out.println((i + 1) + ". " + userActions[i].name());
         }
     }
 
     public static void main(String[] args) {
         Input input = new ConsoleInput();
         Tracker tracker = new Tracker();
-        new StartUI().init(input, tracker);
+        UserAction[] userActions = {
+                new CreateAction(),
+                new FindAllAction(),
+                new ReplaceAction(),
+                new DeleteAction(),
+                new FindByIdAction(),
+                new FindByNameAction(),
+                new ExitAction()
+        };
+        new StartUI().init(input, tracker, userActions);
     }
 }
