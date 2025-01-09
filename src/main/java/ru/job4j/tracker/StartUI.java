@@ -7,7 +7,7 @@ public class StartUI {
         while (run) {
             showMenu(userActions);
             int select = input.askInt("Выбрать: ");
-            UserAction action = userActions[select - 1];
+            UserAction action = userActions[select];
             run = action.execute(input, tracker);
         }
     }
@@ -15,7 +15,7 @@ public class StartUI {
     private void showMenu(UserAction[] userActions) {
         System.out.println();
         for (int i = 0; i < userActions.length; i++) {
-            System.out.println((i + 1) + ". " + userActions[i].name());
+            System.out.println(i + ". " + userActions[i].name());
         }
     }
 
