@@ -19,7 +19,6 @@ class StartUITest {
         assertThat(tracker.findAll()[0].getName()).isEqualTo("First item");
     }
 
-
     @Test
     void whenReplaceItem() {
         Tracker tracker = new Tracker();
