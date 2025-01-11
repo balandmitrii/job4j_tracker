@@ -25,7 +25,7 @@ class ValidateInputTest {
                 new String[] {"1"}
         );
         ValidateInput input = new ValidateInput(output, in);
-        int selected = input.askInt("Enter menu:");;
+        int selected = input.askInt("Enter menu:");
         assertThat(selected).isEqualTo(1);
     }
 
