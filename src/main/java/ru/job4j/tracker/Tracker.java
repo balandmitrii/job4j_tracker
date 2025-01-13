@@ -7,11 +7,10 @@ import java.util.List;
 public class Tracker {
     private final List<Item> items = new ArrayList<>();
     private int ids = 1;
-    private int size = 0;
 
     public Item add(Item item) {
         item.setId(ids++);
-        items.add(size++, item);
+        items.add(item);
         return item;
     }
 
@@ -30,14 +29,13 @@ public class Tracker {
         boolean result = index != -1;
         if (result) {
             items.remove(index);
-            size--;
         }
         return result;
     }
 
     public int indexOf(int id) {
         int result = -1;
-        for (int i = 0; i < size; i++) {
+        for (int i = 0; i < items.size(); i++) {
             if (items.get(i).getId() == id) {
                 result = i;
                 break;
@@ -55,14 +53,14 @@ public class Tracker {
         return List.copyOf(items);
     }
 
-    public Item[] findByName(String key) {
-        Item[] result = new Item[size];
+    public List<Item> findByName(String key) {
+        List<Item> result = new ArrayList<>();
         int sizeResult = 0;
-        for (int i = 0; i < size; i++) {
+        for (int i = 0; i < items.size(); i++) {
             if (key.equals(items.get(i).getName())) {
-                result[sizeResult++] = items.get(i);
+                result.add(items.get(i));
             }
         }
-        return Arrays.copyOf(result, sizeResult);
+        return result;
     }
 }
