@@ -16,24 +16,22 @@ public class ReconstructPhrase {
 
     private String getEvenElements() {
         StringBuilder resultString = new StringBuilder();
-        Iterator<Character> iterator = evenElements.iterator();
-        int index = 0;
-        while (iterator.hasNext()) {
-            if (index % 2 == 0) {
+        int size = evenElements.size();
+        for (int i = 0; i < size; i++) {
+            if (i % 2 == 0) {
                 resultString.append(evenElements.poll());
             } else {
                 evenElements.poll();
             }
-            index++;
         }
         return resultString.toString();
     }
 
     private String getDescendingElements() {
         StringBuilder result = new StringBuilder();
-        Iterator<Character> iterator = descendingElements.descendingIterator();
-        while (iterator.hasNext()) {
-            result.append(iterator.next());
+        int size = descendingElements.size();
+        for (int i = 0; i < size; i++) {
+            result.append(descendingElements.pollLast());
         }
         return result.toString();
     }
