@@ -7,7 +7,7 @@ import java.util.Objects;
 public class Item {
     private int id;
     private String name;
-    private LocalDateTime created = LocalDateTime.now();
+    private final LocalDateTime created = LocalDateTime.now();
     private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd-MMMM-EEEE-yyyy HH:mm:ss");
 
     public Item() {
@@ -60,11 +60,11 @@ public class Item {
             return false;
         }
         Item item = (Item) o;
-        return id == item.id;
+        return id == item.id && name.equals(((Item) o).name);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, created);
+        return Objects.hash(id, name);
     }
 }
