@@ -28,6 +28,4 @@ public class AttachmentSort {
         attachments.sort(comparatorByName);
         System.out.println(attachments);
     }
-
-
 }
