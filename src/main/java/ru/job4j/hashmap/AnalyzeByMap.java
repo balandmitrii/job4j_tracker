@@ -35,10 +35,11 @@ public class AnalyzeByMap {
         HashMap<String, Double> subjectsHash = new HashMap<>();
         for (Pupil pupil : pupils) {
             for (Subject subject : pupil.getSubjects()) {
-                String subjectName = subject.getName();
-                subjectsHash.put(subjectName,
-                        subjectsHash.getOrDefault(subjectName, 0.0D)
-                        + subject.getScore());
+                subjectsHash.merge(
+                        subject.getName(),
+                        subject.getScore(),
+                        Double::sum
+                );
             }
         }
         for (Map.Entry<String, Double> subject : subjectsHash.entrySet()) {
@@ -71,8 +72,11 @@ public class AnalyzeByMap {
         HashMap<String, Double> subjects = new HashMap<>();
         for (Pupil pupil : pupils) {
             for (Subject subject : pupil.getSubjects()) {
-                subjects.put(subject.getName(),
-                        subjects.getOrDefault(subject.getName(), 0.0D) + subject.getScore());
+                subjects.merge(
+                        subject.getName(),
+                        subject.getScore(),
+                        Double::sum
+                );
             }
         }
         for (Map.Entry<String, Double> subject : subjects.entrySet()) {
