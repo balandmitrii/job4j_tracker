@@ -34,4 +34,11 @@ public class Profile {
     public int hashCode() {
         return Objects.hashCode(address);
     }
+
+    @Override
+    public String toString() {
+        return "Profile{"
+                + "address=" + address
+                + '}';
+    }
 }

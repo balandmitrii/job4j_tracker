@@ -19,4 +19,16 @@ public class Profiles {
                 })
                 .toList();
     }
+
+    public static List<Address> collectSortWithoutDuplicate(List<Profile> profiles) {
+        List<Profile> sortedProfiles = profiles.stream()
+                .sorted((Profile left, Profile right) ->
+                        left.getAddress().getCity().compareTo(
+                                right.getAddress().getCity()
+                        )
+                )
+                .distinct()
+                .toList();
+        return collect(sortedProfiles);
+    }
 }
