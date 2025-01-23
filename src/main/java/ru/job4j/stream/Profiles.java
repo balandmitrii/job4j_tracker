@@ -9,21 +9,15 @@ import java.util.stream.Collectors;
 public class Profiles {
 
     public static List<Address> collect(List<Profile> profiles) {
-        Function<Profile, Address> address =
-                (Profile profile) -> profile.getAddress();
         return profiles.stream()
-                .map(address)
-                .map(Profiles::createAddress)
+                .map((Profile profile) -> profile.getAddress())
+                .map((Address address) -> new Address(
+                        address.getCity(),
+                        address.getStreet(),
+                        address.getHome(),
+                        address.getApartment()
+                ))
                 .toList();
-    }
-
-    private static Address createAddress(Address address) {
-        return new Address(
-                address.getCity(),
-                address.getStreet(),
-                address.getHome(),
-                address.getApartment()
-        );
     }
 
     public static List<Address> collectSortWithoutDuplicate(List<Profile> profiles) {
